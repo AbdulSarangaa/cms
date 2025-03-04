@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +19,7 @@ import com.abu.cms.services.CustomerService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/costumers")
+@RequestMapping("/api/customers")
 public class CustomerController {
 
     @Autowired
@@ -31,5 +33,11 @@ public class CustomerController {
     @PostMapping("/add")
     public ResponseEntity<Customer> newCustomer(@RequestBody Customer costumer) {
         return new ResponseEntity<>(service.newCustomer(costumer), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable("id") Long customerId,
+            @RequestBody Customer customer) {
+        return ResponseEntity.ok(service.updateCustomer(customerId, customer));
     }
 }

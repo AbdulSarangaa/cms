@@ -26,4 +26,16 @@ public class CustomerService {
     public Customer newCustomer(Customer costumer) {
         return repository.save(costumer);
     }
+
+    public Customer updateCustomer(Long customerId, Customer customer) {
+        Customer existingCustomer = findCustomerById(customerId);
+
+        existingCustomer.setId(customerId);
+        existingCustomer.setFirstName(customer.getFirstName());
+        existingCustomer.setLastName(customer.getLastName());
+        // existingCustomer.setEmail(customer.getEmail());
+        // existingCustomer.setCellPhone(customer.getCellPhone());
+
+        return repository.save(existingCustomer);
+    }
 }
